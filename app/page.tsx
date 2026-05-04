@@ -1,329 +1,377 @@
-export default function Home() {
-  const fleet = [
+"use client";
+
+import { useMemo, useState } from "react";
+
+export default function ZesLandingPage() {
+  const [activeCollection, setActiveCollection] = useState("Footwear");
+  const [cart, setCart] = useState([]);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [newsletterSent, setNewsletterSent] = useState(false);
+
+  const products = [
     {
-      name: "Executive Limousine Services",
-      desc: "Perfect for airport transfers, business travel, and private city rides.",
+      name: "ZES Marble Slides",
+      category: "Footwear",
+      color: "Marble White & Gold",
+      price: 100,
       image:
-        "https://images.pexels.com/photos/5880098/pexels-photo-5880098.jpeg",
+        "https://images.unsplash.com/photo-1603487742131-4160ec999306?auto=format&fit=crop&w=900&q=80",
     },
     {
-      name: "Stretch Limousine",
-      desc: "Spacious, elegant, and ideal for families, events, and VIP guests.",
+      name: "ZES Marble Hightops",
+      category: "Footwear",
+      color: "Marble White & Gold",
+      price: 150,
       image:
-        "https://media.gettyimages.com/id/172664312/photo/limo-side-view.jpg?s=612x612&w=0&k=20&c=0tr6s-CDDoLfxREU-3u-IcXPFdpNoUEXuklmeFxbhzE=",
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80",
     },
     {
-      name: "Party Limousine",
-      desc: "A premium option for larger groups, corporate teams, and special occasions.",
+      name: "ZES Marble Boots",
+      category: "Footwear",
+      color: "White & Gold Edition",
+      price: 199,
       image:
-        "https://media.gettyimages.com/id/130406857/photo/women-in-bunny-ears-drinking-champagne-in-limo.jpg?s=612x612&w=0&k=20&c=V2ZU11C-D6cBWlDL3onuAT2JyQbcft4PweqWkodgD-k=",
+        "https://images.unsplash.com/photo-1542838687-fbb1db3b08c3?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      name: "ZES Fur Maxi Coat",
+      category: "Coats",
+      color: "Gold & Fur Edition",
+      price: 399,
+      image:
+        "https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      name: "ZES Icon Coat",
+      category: "Coats",
+      color: "Royal Gold Edition",
+      price: 449,
+      image:
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      name: "ZES Gold Vest",
+      category: "Vests",
+      color: "Matte Gold Finish",
+      price: 749,
+      image:
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      name: "ZES Obsidian Vest",
+      category: "Vests",
+      color: "Black & Gold Classic",
+      price: 649,
+      image:
+        "https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      name: "ZES Legacy Hoodie",
+      category: "Clothing",
+      color: "Marble Cream & Gold",
+      price: 129,
+      image:
+        "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80",
     },
   ];
 
-  const services = [
-    "Airport Transfers",
-    "Corporate Travel",
-    "Wedding & Event Transportation",
-    "Hourly Chauffeur Service",
-    "City-to-City Rides",
-    "VIP Executive Travel",
+  const features = [
+    ["Premium Quality", "Crafted with the finest materials."],
+    ["Iconic Design", "Inspired by ancient Greek heritage."],
+    ["Built to Last", "Comfort, structure, and durability."],
+    ["Worldwide Shipping", "Delivering excellence to your door."],
   ];
+
+  const categories = ["Footwear", "Coats", "Vests", "Clothing"];
+
+  const filteredProducts = useMemo(
+    () => products.filter((product) => product.category === activeCollection),
+    [activeCollection]
+  );
+
+  const addToCart = (product) => {
+    setCart((current) => [...current, product]);
+    setCartOpen(true);
+  };
+
+  const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
+
+  const handleNewsletter = (event) => {
+    event.preventDefault();
+    if (!email.trim()) return;
+    setNewsletterSent(true);
+    setEmail("");
+  };
 
   return (
-    <div className="min-h-screen bg-[#0b0b0d] text-white">
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0b0b0d]/90 backdrop-blur">
+    <main className="min-h-screen bg-[#fbf7ef] text-[#14110d]">
+      <header className="sticky top-0 z-50 border-b border-[#d8bc76]/40 bg-white/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div>
-            <p className="text-xl font-semibold tracking-[0.2em] text-[#d7b06a]">
-              LUXRIDE
-            </p>
-            <p className="text-xs text-white/50">
-              Limo Rental & Chauffeur Service
-            </p>
-          </div>
+          <a href="#home" className="font-serif text-5xl tracking-[0.14em] text-[#b88a25]">
+            ZES
+          </a>
 
-          <nav className="hidden gap-8 text-sm text-white/75 md:flex">
-            <a href="#home" className="transition hover:text-[#d7b06a]">
-              Home
-            </a>
-            <a href="#services" className="transition hover:text-[#d7b06a]">
-              Services
-            </a>
-            <a href="#fleet" className="transition hover:text-[#d7b06a]">
-              Fleet
-            </a>
-            <a href="#contact" className="transition hover:text-[#d7b06a]">
-              Contact
-            </a>
+          <nav className="hidden items-center gap-8 text-sm font-bold uppercase tracking-wide md:flex">
+            <a href="#home" className="border-b-2 border-[#b88a25] pb-1 text-[#b88a25]">Home</a>
+            <a href="#shop" className="hover:text-[#b88a25]">Shop</a>
+            <a href="#collections" className="hover:text-[#b88a25]">Collections</a>
+            <a href="#lookbook" className="hover:text-[#b88a25]">Lookbook</a>
+            <a href="#contact" className="hover:text-[#b88a25]">Contact</a>
           </nav>
 
-          <a
-            href="#contact"
-            className="rounded-full bg-[#d7b06a] px-5 py-2 text-sm font-medium text-black transition hover:opacity-90"
-          >
-            Book Now
-          </a>
+          <div className="flex items-center gap-4 text-[#b88a25]">
+            <button className="text-2xl" aria-label="Search">⌕</button>
+            <button className="text-2xl" aria-label="Account">♙</button>
+            <button
+              onClick={() => setCartOpen(true)}
+              className="relative text-2xl"
+              aria-label="Open cart"
+            >
+              ♧
+              <span className="absolute -right-3 -top-2 grid h-5 w-5 place-items-center rounded-full bg-[#b88a25] text-xs font-bold text-white">
+                {cart.length}
+              </span>
+            </button>
+          </div>
         </div>
       </header>
 
+      {cartOpen && (
+        <div className="fixed inset-0 z-[100] bg-black/40" onClick={() => setCartOpen(false)}>
+          <aside
+            className="ml-auto h-full w-full max-w-md bg-white p-6 shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-[#d8bc76]/40 pb-4">
+              <h2 className="font-serif text-3xl font-bold">Your Cart</h2>
+              <button onClick={() => setCartOpen(false)} className="text-2xl">×</button>
+            </div>
+
+            {cart.length === 0 ? (
+              <p className="mt-8 text-[#665a4a]">Your cart is empty.</p>
+            ) : (
+              <div className="mt-6 space-y-4">
+                {cart.map((item, index) => (
+                  <div key={`${item.name}-${index}`} className="flex gap-4 border-b border-[#eee2c8] pb-4">
+                    <img src={item.image} alt={item.name} className="h-20 w-20 object-cover" />
+                    <div className="flex-1">
+                      <p className="font-serif text-lg font-bold">{item.name}</p>
+                      <p className="text-sm text-[#6d6254]">{item.color}</p>
+                      <p className="mt-1 font-bold text-[#b88a25]">${item.price}</p>
+                    </div>
+                  </div>
+                ))}
+                <div className="flex justify-between pt-4 text-xl font-bold">
+                  <span>Total</span>
+                  <span className="text-[#b88a25]">${cartTotal}</span>
+                </div>
+                <button className="w-full bg-[#b88a25] px-5 py-4 font-bold uppercase tracking-wide text-white">
+                  Checkout
+                </button>
+              </div>
+            )}
+          </aside>
+        </div>
+      )}
+
       <section
         id="home"
-        className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 md:py-24"
+        className="relative overflow-hidden bg-[linear-gradient(135deg,#ffffff_0%,#fbf7ef_42%,#efe3cc_100%)]"
       >
-        <div className="flex flex-col justify-center">
-          <div className="mb-4 inline-flex w-fit rounded-full border border-[#d7b06a]/30 bg-[#d7b06a]/10 px-4 py-1 text-xs uppercase tracking-[0.25em] text-[#d7b06a]">
-            Premium Limo Rental
-          </div>
+        <div className="absolute inset-0 opacity-60 [background-image:radial-gradient(circle_at_20%_10%,rgba(184,138,37,0.18),transparent_26%),linear-gradient(115deg,rgba(184,138,37,0.09)_1px,transparent_1px),linear-gradient(45deg,rgba(50,40,25,0.05)_1px,transparent_1px)] [background-size:auto,95px_95px,120px_120px]" />
 
-          <h1 className="max-w-2xl text-4xl font-semibold leading-tight md:text-6xl">
-            Luxury rides for airport transfers, events, and executive travel.
-          </h1>
-
-          <p className="mt-6 max-w-xl text-base leading-7 text-white/70 md:text-lg">
-            Travel in comfort with professional chauffeurs, premium vehicles,
-            and a smooth booking experience tailored for business and personal
-            occasions.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a
-              href="#contact"
-              className="rounded-full bg-[#d7b06a] px-6 py-3 font-medium text-black transition hover:opacity-90"
-            >
-              Reserve Your Ride
-            </a>
-
-            <a
-              href="#fleet"
-              className="rounded-full border border-white/15 px-6 py-3 font-medium text-white transition hover:border-[#d7b06a] hover:text-[#d7b06a]"
-            >
-              View Fleet
-            </a>
-          </div>
-
-          <div className="mt-10 grid max-w-xl grid-cols-2 gap-4 sm:grid-cols-4">
-            {[
-              ["24/7", "Availability"],
-              ["VIP", "Service"],
-              ["Luxury", "Fleet"],
-              ["Professional", "Chauffeurs"],
-            ].map(([title, label]) => (
-              <div
-                key={title}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-4"
-              >
-                <p className="text-lg font-semibold text-[#d7b06a]">{title}</p>
-                <p className="mt-1 text-sm text-white/60">{label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="absolute inset-0 rounded-[2rem] bg-[#d7b06a]/15 blur-3xl" />
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#111114] shadow-2xl">
-            <img
-              src="https://images.pexels.com/photos/9151813/pexels-photo-9151813.jpeg?cs=srgb&dl=pexels-brennan-tolman-250017-9151813.jpg&fm=jpg"
-              alt="Luxury limousine"
-              className="h-[520px] w-full object-cover"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/70 to-transparent p-6">
-              <div className="rounded-2xl border border-white/10 bg-black/40 p-5 backdrop-blur">
-                <p className="text-sm uppercase tracking-[0.2em] text-[#d7b06a]">
-                  Elite Chauffeur Experience
-                </p>
-                <p className="mt-2 text-sm leading-6 text-white/75">
-                  Reliable transport for airport pickups, weddings, business
-                  meetings, nights out, and special events.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="services" className="mx-auto max-w-7xl px-6 py-8 md:py-16">
-        <div className="mb-10 max-w-2xl">
-          <p className="text-sm uppercase tracking-[0.25em] text-[#d7b06a]">
-            Our Services
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold md:text-4xl">
-            Luxury transportation made simple
-          </h2>
-          <p className="mt-4 text-white/70">
-            Whether you need a sleek sedan for a business meeting or a spacious
-            sprinter for a group event, we provide dependable luxury
-            transportation with attention to every detail.
-          </p>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
-            <div
-              key={service}
-              className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-[#d7b06a]/40 hover:bg-white/[0.05]"
-            >
-              <div className="mb-4 h-10 w-10 rounded-full bg-[#d7b06a]/15" />
-              <h3 className="text-lg font-semibold">{service}</h3>
-              <p className="mt-2 text-sm leading-6 text-white/60">
-                Premium service, punctual arrival, and a polished experience
-                from booking to drop-off.
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="fleet" className="mx-auto max-w-7xl px-6 py-8 md:py-16">
-        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <p className="text-sm uppercase tracking-[0.25em] text-[#d7b06a]">
-              Our Fleet
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold md:text-4xl">
-              Choose the right ride for any occasion
-            </h2>
-          </div>
-          <p className="max-w-xl text-white/65">
-            Modern, spotless, and chauffeur-driven vehicles designed for
-            comfort, professionalism, and style.
-          </p>
-        </div>
-
-        <div className="grid gap-6 lg:grid-cols-3">
-          {fleet.map((car) => (
-            <div
-              key={car.name}
-              className="overflow-hidden rounded-[2rem] border border-white/10 bg-[#111114] shadow-xl"
-            >
-              <img
-                src={car.image}
-                alt={car.name}
-                className="h-60 w-full object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold">{car.name}</h3>
-                <p className="mt-3 text-sm leading-6 text-white/65">
-                  {car.desc}
-                </p>
-                <a
-                  href="#contact"
-                  className="mt-5 inline-flex rounded-full border border-[#d7b06a]/40 px-4 py-2 text-sm text-[#d7b06a] transition hover:bg-[#d7b06a] hover:text-black"
-                >
-                  Request Quote
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 py-8 md:py-16">
-        <div className="rounded-[2rem] border border-white/10 bg-gradient-to-r from-[#151518] to-[#101011] p-8 md:p-12">
-          <div className="grid gap-8 md:grid-cols-2 md:items-center">
-            <div>
-              <p className="text-sm uppercase tracking-[0.25em] text-[#d7b06a]">
-                Why Choose Us
-              </p>
-              <h2 className="mt-3 text-3xl font-semibold md:text-4xl">
-                Professional service with a luxury touch
-              </h2>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[
-                "On-time pickups and drop-offs",
-                "Elegant vehicles for every need",
-                "Experienced professional chauffeurs",
-                "Simple reservations and responsive support",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm text-white/75"
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="mx-auto max-w-7xl px-6 py-12 md:py-20">
-        <div className="grid gap-8 rounded-[2rem] border border-white/10 bg-[#111114] p-8 md:grid-cols-2 md:p-12">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 py-16 md:grid-cols-[0.9fr_1.1fr] md:py-24">
           <div>
-            <p className="text-sm uppercase tracking-[0.25em] text-[#d7b06a]">
-              Contact Us
+            <p className="mb-5 text-sm font-bold uppercase tracking-[0.35em] text-[#b88a25]">
+              Divine Collection
             </p>
-            <h2 className="mt-3 text-3xl font-semibold md:text-4xl">
-              Book your luxury ride today
-            </h2>
-            <p className="mt-4 max-w-lg text-white/70">
-              Reach out for pricing, availability, airport transfers, weddings,
-              events, or corporate transportation. We’ll help you find the
-              perfect vehicle for your trip.
+            <h1 className="font-serif text-6xl font-black leading-none md:text-7xl">
+              Divine <span className="text-[#b88a25]">Style.</span>
+              <br /> Timeless <span className="text-[#b88a25]">Power.</span>
+            </h1>
+            <p className="mt-6 max-w-md text-lg leading-8 text-[#504639]">
+              ZES is more than clothing. It is a statement of strength, purpose, and legacy.
             </p>
+            <a href="#shop" className="mt-8 inline-flex bg-[#c5972f] px-8 py-4 text-sm font-bold uppercase tracking-wide text-white">
+              Shop Collection →
+            </a>
+          </div>
 
-            <div className="mt-8 space-y-4 text-white/75">
-              <div>
-                <p className="text-sm text-white/50">Phone</p>
-                <p className="text-lg font-medium">(555) 123-4567</p>
+          <div className="relative min-h-[520px]">
+            <div className="absolute right-0 top-6 h-[460px] w-[63%] rounded-t-full bg-[#d1a13b] shadow-2xl" />
+            <div className="absolute right-8 top-16 h-[360px] w-[38%] rounded-t-full bg-[#111] shadow-xl" />
+            <div className="absolute bottom-0 left-0 grid w-full grid-cols-3 gap-4">
+              <div className="rounded-t-[4rem] border border-[#d8bc76] bg-[#d1a13b] p-5 shadow-xl">
+                <div className="h-56 rounded-t-[3rem] bg-[linear-gradient(135deg,#f6cc50,#b98a1d)]" />
+                <p className="mt-4 font-serif text-2xl font-bold text-white">Gold Vest</p>
               </div>
-              <div>
-                <p className="text-sm text-white/50">Email</p>
-                <p className="text-lg font-medium">bookings@luxride.com</p>
+              <div className="rounded-t-[4rem] border border-[#d8bc76] bg-white p-5 shadow-xl">
+                <div className="h-56 rounded-t-[3rem] bg-[linear-gradient(135deg,#ffffff,#e7dfd3,#c5972f)]" />
+                <p className="mt-4 font-serif text-2xl font-bold">Marble Shoes</p>
               </div>
-              <div>
-                <p className="text-sm text-white/50">Service Area</p>
-                <p className="text-lg font-medium">
-                  Airport, Downtown, Corporate, Events & Long Distance
-                </p>
+              <div className="rounded-t-[4rem] border border-[#d8bc76] bg-[#15120d] p-5 shadow-xl">
+                <div className="h-56 rounded-t-[3rem] bg-[linear-gradient(135deg,#111,#2b251d,#c5972f)]" />
+                <p className="mt-4 font-serif text-2xl font-bold text-white">Obsidian</p>
               </div>
             </div>
           </div>
-
-          <form className="space-y-4">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none placeholder:text-white/35 focus:border-[#d7b06a]"
-              />
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none placeholder:text-white/35 focus:border-[#d7b06a]"
-              />
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <input
-                type="text"
-                placeholder="Phone Number"
-                className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none placeholder:text-white/35 focus:border-[#d7b06a]"
-              />
-              <input
-                type="text"
-                placeholder="Service Needed"
-                className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none placeholder:text-white/35 focus:border-[#d7b06a]"
-              />
-            </div>
-
-            <textarea
-              rows={6}
-              placeholder="Tell us about your trip, pickup location, date, and special requests"
-              className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none placeholder:text-white/35 focus:border-[#d7b06a]"
-            />
-
-            <button
-              type="button"
-              className="w-full rounded-2xl bg-[#d7b06a] px-6 py-3 font-medium text-black transition hover:opacity-90"
-            >
-              Send Inquiry
-            </button>
-          </form>
         </div>
       </section>
-    </div>
+
+      <section className="border-y border-[#d8bc76]/40 bg-white">
+        <div className="mx-auto grid max-w-7xl gap-6 px-6 py-8 md:grid-cols-4">
+          {features.map(([title, text]) => (
+            <div key={title} className="flex gap-4 border-[#d8bc76]/40 md:border-r md:pr-6 last:border-r-0">
+              <div className="text-4xl text-[#b88a25]">♜</div>
+              <div>
+                <p className="font-bold uppercase tracking-wide">{title}</p>
+                <p className="mt-1 text-sm leading-6 text-[#675b4b]">{text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="shop" className="mx-auto max-w-7xl px-6 py-20">
+        <div className="text-center">
+          <p className="text-sm font-bold uppercase tracking-[0.35em] text-[#b88a25]">Our Collection</p>
+          <h2 className="mt-3 font-serif text-5xl font-bold">Clothing & Footwear</h2>
+          <div className="mx-auto mt-4 h-1 w-24 bg-[#c5972f]" />
+        </div>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCollection(category)}
+              className={`border px-5 py-3 text-sm font-bold uppercase tracking-wide transition ${
+                activeCollection === category
+                  ? "border-[#b88a25] bg-[#b88a25] text-white"
+                  : "border-[#d8bc76] bg-white text-[#b88a25] hover:bg-[#f4ead6]"
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-12 grid gap-8 md:grid-cols-3">
+          {filteredProducts.map((product) => (
+            <article key={product.name} className="group overflow-hidden border border-[#d6c7a6] bg-white shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+              <div className="relative h-80 overflow-hidden bg-[#f1eadc]">
+                <img src={product.image} alt={product.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                <span className="absolute right-4 top-4 bg-[#b88a25] px-3 py-1 text-xs font-bold uppercase text-white">
+                  New
+                </span>
+              </div>
+              <div className="p-6">
+                <p className="text-sm text-[#665a4a]">{product.color}</p>
+                <h3 className="mt-1 font-serif text-2xl font-bold">{product.name}</h3>
+                <p className="mt-3 text-3xl font-semibold text-[#b88a25]">${product.price}</p>
+                <button
+                  onClick={() => addToCart(product)}
+                  className="mt-5 w-full border border-[#c5972f] px-4 py-3 text-sm font-bold uppercase tracking-wide text-[#b88a25] transition hover:bg-[#c5972f] hover:text-white"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="collections" className="bg-white">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-20 md:grid-cols-2">
+          <div className="min-h-[460px] bg-[linear-gradient(135deg,#f8f4ec,#ffffff,#d0a13a)] p-8 shadow-xl">
+            <div className="h-full border border-[#c5972f]/40 bg-white/45 p-8">
+              <p className="text-sm font-bold uppercase tracking-[0.3em] text-[#b88a25]">Lookbook</p>
+              <h2 className="mt-4 font-serif text-5xl font-bold">Discover the Collection</h2>
+              <p className="mt-5 max-w-sm leading-7 text-[#594d3f]">
+                Designed for those who lead. Every piece represents power, elevated style, and heritage-inspired luxury.
+              </p>
+              <a href="#shop" className="mt-8 inline-flex bg-[#c5972f] px-6 py-3 text-sm font-bold uppercase tracking-wide text-white">
+                Explore Lookbook →
+              </a>
+            </div>
+          </div>
+
+          <div className="grid gap-5">
+            <div className="border border-[#d6c7a6] bg-[#fbf7ef] p-6">
+              <p className="font-serif text-3xl font-bold">Footwear</p>
+              <p className="mt-2 text-[#665a4a]">Marble textures, gold trim, and bold silhouettes.</p>
+            </div>
+            <div className="border border-[#d6c7a6] bg-[#fbf7ef] p-6">
+              <p className="font-serif text-3xl font-bold">Luxury Coats</p>
+              <p className="mt-2 text-[#665a4a]">Statement outerwear designed around power and prestige.</p>
+            </div>
+            <div className="border border-[#d6c7a6] bg-[#fbf7ef] p-6">
+              <p className="font-serif text-3xl font-bold">Signature Vests</p>
+              <p className="mt-2 text-[#665a4a]">Greek-inspired armor styling with premium finishing.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="mx-auto max-w-7xl px-6 py-20">
+        <div className="grid gap-8 border-y border-[#d8bc76]/40 py-12 md:grid-cols-4">
+          {[
+            ["Made to Stand Out", "Bold designs. Royal details. You were never meant to blend in."],
+            ["Inspired by Greatness", "Rooted in Greek heritage. Worn by modern leaders."],
+            ["Confidence in Every Thread", "Premium materials, flawless fit, power you can feel."],
+            ["Secure & Trusted", "Encrypted payments and dedicated customer care."],
+          ].map(([title, text]) => (
+            <div key={title} className="text-center">
+              <div className="mx-auto mb-4 text-5xl text-[#b88a25]">♛</div>
+              <p className="font-bold uppercase tracking-wide">{title}</p>
+              <p className="mt-2 text-sm leading-6 text-[#665a4a]">{text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="contact" className="bg-white">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <p className="font-serif text-5xl tracking-[0.14em] text-[#b88a25]">ZES</p>
+            <p className="mt-3 max-w-sm text-[#665a4a]">Strength. Legacy. Excellence. Wear your power.</p>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            <div>
+              <p className="font-bold uppercase">Shop</p>
+              <p className="mt-3 text-sm text-[#665a4a]">All Products</p>
+              <p className="mt-2 text-sm text-[#665a4a]">Footwear</p>
+              <p className="mt-2 text-sm text-[#665a4a]">Coats</p>
+              <p className="mt-2 text-sm text-[#665a4a]">Accessories</p>
+            </div>
+            <div>
+              <p className="font-bold uppercase">Customer Care</p>
+              <p className="mt-3 text-sm text-[#665a4a]">FAQ</p>
+              <p className="mt-2 text-sm text-[#665a4a]">Shipping & Delivery</p>
+              <p className="mt-2 text-sm text-[#665a4a]">Returns & Exchanges</p>
+              <p className="mt-2 text-sm text-[#665a4a]">Track Order</p>
+            </div>
+            <form onSubmit={handleNewsletter}>
+              <p className="font-bold uppercase">Stay Connected</p>
+              <p className="mt-3 text-sm text-[#665a4a]">Be the first to know about new releases and exclusive offers.</p>
+              <div className="mt-4 flex border border-[#d6c7a6]">
+                <input
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  placeholder="Enter your email"
+                  className="w-full px-3 py-3 outline-none"
+                />
+                <button className="bg-[#c5972f] px-4 text-white">→</button>
+              </div>
+              {newsletterSent && <p className="mt-2 text-sm font-semibold text-[#b88a25]">Thanks — you are on the list.</p>}
+            </form>
+          </div>
+        </div>
+        <div className="border-t border-[#d8bc76]/40 py-4 text-center text-xs text-[#665a4a]">
+          © 2024 ZES. All rights reserved.
+        </div>
+      </section>
+    </main>
   );
 }
